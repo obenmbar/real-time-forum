@@ -1,6 +1,5 @@
-
 CREATE TABLE IF NOT EXISTS users (
-    id TEXT PRIMARY KEY,
+    id TEXT PRIMARY KEY, -- تبدلات لـ TEXT وحيدنا AUTOINCREMENT
     nickname TEXT UNIQUE NOT NULL,
     age INTEGER NOT NULL,
     gender TEXT NOT NULL,
@@ -11,10 +10,9 @@ CREATE TABLE IF NOT EXISTS users (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-
 CREATE TABLE IF NOT EXISTS posts (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    user_id TEXT NOT NULL,
+    id INTEGER PRIMARY KEY AUTOINCREMENT, -- الـ post يقدر يبقى INTEGER عادي
+    user_id TEXT NOT NULL, -- تبدلات لـ TEXT باش تناسب ID ديال user
     title TEXT NOT NULL,
     content TEXT NOT NULL,
     category TEXT NOT NULL,
@@ -22,11 +20,10 @@ CREATE TABLE IF NOT EXISTS posts (
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
-
 CREATE TABLE IF NOT EXISTS comments (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     post_id INTEGER NOT NULL,
-    user_id TEXT NOT NULL,
+    user_id TEXT NOT NULL, -- تبدلات لـ TEXT
     content TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (post_id) REFERENCES posts(id) ON DELETE CASCADE,
@@ -35,19 +32,18 @@ CREATE TABLE IF NOT EXISTS comments (
 
 CREATE TABLE IF NOT EXISTS messages (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    sender_id TEXT NOT NULL,
-    receiver_id TEXT NOT NULL,
+    sender_id TEXT NOT NULL, -- تبدلات لـ TEXT
+    receiver_id TEXT NOT NULL, -- تبدلات لـ TEXT
     content TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (sender_id) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (receiver_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
+-- هادي ديجا عندك ناضية
 CREATE TABLE IF NOT EXISTS sessions (
     id TEXT PRIMARY KEY,
     user_id TEXT NOT NULL,
     expires_at TIMESTAMP NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
-CREATE UNIQUE INDEX IF NOT EXISTS idx_user_email ON users(email);
-CREATE UNIQUE INDEX IF NOT EXISTS idx_user_nickname ON users(nickname);
