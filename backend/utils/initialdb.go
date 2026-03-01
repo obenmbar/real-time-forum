@@ -4,6 +4,8 @@ import (
 	"database/sql"
 	"fmt"
 	"os"
+
+ _  "modernc.org/sqlite"
 )
 
 func InitialeDb() (*sql.DB, error) {
@@ -12,27 +14,32 @@ func InitialeDb() (*sql.DB, error) {
 		return nil, fmt.Errorf("errror en creation db dir")
 	}
 
-	db, err := sql.Open("sqlite3", "db/forumm.db")
+	db, err := sql.Open("sqlite", "db/forum.db")
 	if err != nil {
-		return nil,fmt.Errorf("error en create forum.db")
-		
+		return nil, fmt.Errorf("error en create forum.db")
+
 	}
 
 	if err = db.Ping(); err != nil {
-		return nil,  fmt.Errorf("errror en connecting avec database ")
-	}
-   
-	data, err := os.ReadFile("db/forum.sql")
-	if err != nil {
-		return nil,  fmt.Errorf("error en read formsql")
+		return nil, err
 	}
 
-	commandsql :=  string(data)
-    _, err = db.Exec(commandsql)
+	_, err = db.Exec("PRAGMA foreign_keys = ON;")
+	if err != nil {
+		return nil, fmt.Errorf("error enabling foreign keys: %v", err)
+	}
+
+	data, err := os.ReadFile("db/forum.sql")
+	if err != nil {
+		return nil, fmt.Errorf("error en read formsql")
+	}
+
+	commandsql := string(data)
+	_, err = db.Exec(commandsql)
 	if err != nil {
 		return nil, fmt.Errorf("error en execution db")
 	}
 
- return db ,nil
-	
+	return db, nil
+
 }
