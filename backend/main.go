@@ -1,25 +1,33 @@
 package main
 
 import (
-
 	"fmt"
 	forum "forum/utils"
+	nki "forum/handlers"
 	"net/http"
-
-	_ "github.com/mattn/go-sqlite3"
 )
 
 func main() {
 	db, err := forum.InitialeDb()
-  if err != nil {
-	fmt.Println(err)
-	return 
-  }
-  defer db.Close()
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	defer db.Close()
+	serverDB := nki.DB{Db: db}
 
 	mux := http.NewServeMux()
-	mux.HandleFunc("/", func(http.ResponseWriter, *http.Request) {
+
+	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "../frontend/index.html")
 	})
+
+	mux.HandleFunc("/register", func(w http.ResponseWriter, r *http.Request) {
+                   serverDB.Registerhandler(w,r)
+	})
+
+       mux.Handle("/static/",http.StripPrefix("/static/",nki.SafeFileServer()))
+
 	fmt.Println("server started: http://localhost:8080")
 	err = http.ListenAndServe(":8080", mux)
 	if err != nil {
