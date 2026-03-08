@@ -1,8 +1,8 @@
+import { RenderHome } from "./home"
 
 
-
- export const initialregisterDAta = () => {
-     const container = document.getElementById('container')
+  export function RenderRegister() {
+  const container = document.getElementById('container')
      
    const registerhtml = `<h2>Register</h2>
         <form id="register-form">
@@ -55,14 +55,20 @@
 
     container.innerHTML= registerhtml
 
+    RegisterLogique()
+    
+  }
+ export const RegisterLogique = () => {
+   
+
     const form  = document.getElementById('register-form')
 
     form.addEventListener('submit', async (event) => {
      event.preventDefault()
      const formData =  new FormData(form)
      const data = Object.fromEntries(formData.entries())
-     if (data.password.length<6){
-        alert("password lnegth small")
+     if (data.password.length<8 || data.password.length >30){
+        alert("valid password length enter 8 and 30 caracter")
         return
      }
 
@@ -101,16 +107,17 @@
 
         if (!response.ok){
             const errorresponse = await response.json()
-            throw new Error(errorresponse || "somthing bad")
+            throw new Error(errorresponse.messege|| "somthing bad")
         }
         
      const result = await response.json()
+     RenderHome()
       console.log(result)
-     }catch(error){
-       alert(error.messege || "error en backend")
-       console.error(error.messege)
-     }
     
+    }catch(error){
+       alert(error.message || "error en backend")
+       console.error(error.message)
+     }
      
     })
  }

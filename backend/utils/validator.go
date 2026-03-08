@@ -1,6 +1,7 @@
 package forum
 
 import (
+	"database/sql"
 	"fmt"
 	"regexp"
 	"strconv"
@@ -8,7 +9,6 @@ import (
 
 	"unicode"
 
-	"github.com/gofrs/uuid"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -100,7 +100,7 @@ func ValidUserdata(data Users) error {
 		return fmt.Errorf("invalid email, email dois contien @ and . ")
 	}
 	if len(strings.TrimSpace(data.Password)) == 0 || len(data.Password) < 8 || len(data.Password) > 30 {
-		fmt.Errorf("valid password minimum 8")
+		return fmt.Errorf("valid password minimum 8")
 	}
 
 	var upercase, lowercase, number bool
@@ -124,18 +124,24 @@ func ValidUserdata(data Users) error {
 	return nil
 }
 
-func GeneratePassword(password string) (string, error) {
-	hashpassword, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
-	if err != nil {
-		return "", fmt.Errorf("error en genarte password")
-	}
-	return string(hashpassword), nil
-}
+func ValidLoginData(db *sql.DB, data Login) (string, error) {
+	query := "SELECT id,password FROM users WHERE nickname = ? OR email = ?"
 
-func GenerateUUID() (string, error) {
-	 id, err := uuid.NewV4()
-	 if err != nil {
-		return "" , fmt.Errorf("error en generate uuid")
-	 }
-	 return id.String(), nil
+	var userid string
+	var hashpassword string
+
+	err := db.QueryRow(query, data.Nicknameoremail, data.Nicknameoremail).Scan(&userid, &hashpassword)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return "", fmt.Errorf("user not found")
+		}
+		return "walo", fmt.Errorf("internl server error, try later")
+	}
+
+	err = bcrypt.CompareHashAndPassword([]byte(hashpassword), []byte(data.Password))
+	if err != nil {
+		return "", fmt.Errorf("invalid password")
+	}
+
+	return userid, nil
 }

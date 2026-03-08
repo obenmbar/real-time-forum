@@ -1,4 +1,9 @@
-/* تنسيق عام للخط والخلفية */
+/* static/style.css */
+
+* {
+    box-sizing: border-box; /* كتحمي الـ inputs باش ما يخرجوش من الكارطونة */
+}
+
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f7f6;
@@ -9,7 +14,6 @@ body {
     margin: 0;
 }
 
-/* حاوية الفورم */
 #container {
     background: #ffffff;
     padding: 30px;
@@ -26,11 +30,11 @@ h2 {
     text-transform: capitalize;
 }
 
-/* تنظيم كل حقل */
 .input-group {
     margin-bottom: 15px;
     display: flex;
     flex-direction: column;
+    text-align: left; /* باش الـ label يجي لليسار */
 }
 
 .input-group label {
@@ -39,20 +43,19 @@ h2 {
     color: #555;
 }
 
-/* تنسيق الحقول (Inputs) */
-input, select {
+input {
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
     font-size: 14px;
     outline: none;
+    width: 100%; /* كياخد العرض كامل ديال الـ div */
 }
 
-input:focus, select:focus {
-    border-color: #4CAF50; /* كيتغير اللون فاش كتكليكي على الحقل */
+input:focus {
+    border-color: #4CAF50;
 }
 
-/* زر الإرسال */
 #submit-btn {
     width: 100%;
     padding: 12px;
@@ -64,8 +67,26 @@ input:focus, select:focus {
     font-size: 16px;
     font-weight: bold;
     transition: background 0.3s ease;
+    margin-top: 10px;
 }
 
 #submit-btn:hover {
-    background-color: #bff3c2;
+    background-color: #45a049; /* لون أخضر غامق شوية */
+}
+
+#container-linkregister {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+#container-linkregister a {
+    color: #4CAF50;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+#container-linkregister a:hover {
+    text-decoration: underline;
 }

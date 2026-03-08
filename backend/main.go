@@ -25,6 +25,10 @@ func main() {
 	mux.HandleFunc("/register", func(w http.ResponseWriter, r *http.Request) {
                    serverDB.Registerhandler(w,r)
 	})
+       
+	mux.HandleFunc("/login",func(w http.ResponseWriter, r *http.Request) {
+		serverDB.LoginHandler(w,r)
+	})
 
        mux.Handle("/static/",http.StripPrefix("/static/",nki.SafeFileServer()))
 

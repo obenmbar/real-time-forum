@@ -12,4 +12,8 @@ type Users struct {
 	Password         string `json:"password"`
 	Confirm_password string `json:"confirm-password"`
 }
-
+type Login struct {
+	Nicknameoremail string `json:user`
+	Password  string `json:password`
+}
+	

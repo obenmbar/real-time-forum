@@ -1,3 +1,3 @@
-import { initialregisterDAta }  from "./handlers/register.mjs";
+import { RenderRegister }  from "./handlers/register.js";
 
- initialregisterDAta()
+ RenderRegister()
