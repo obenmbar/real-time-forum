@@ -16,6 +16,7 @@ func (db *DB) AuthMiddleware(nextfunchandler http.HandlerFunc) http.HandlerFunc 
 			json.NewEncoder(w).Encode(map[string]string{"messege": "Login required"})
 			return
 		}
+		
 		var expireddate int64
 		var userid string
 		query := "SELECT user_id,expires_at FROM sessions WHERE id = ?"
@@ -35,6 +36,7 @@ func (db *DB) AuthMiddleware(nextfunchandler http.HandlerFunc) http.HandlerFunc 
 			json.NewEncoder(w).Encode(map[string]string{"messege": "Session expired"})
 			return
 		}
+
 		ctx :=  context.WithValue(r.Context(),"user_id",userid) 
          nextfunchandler(w,r.WithContext(ctx))
 	}
