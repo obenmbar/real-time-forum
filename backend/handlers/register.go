@@ -15,6 +15,7 @@ import (
 type DB struct {
 	Db *sql.DB
 }
+
 func (db *DB) Registerhandler(w http.ResponseWriter, r *http.Request) {
 
     if r.Method != http.MethodPost {
