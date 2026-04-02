@@ -90,3 +90,19 @@ input:focus {
 #container-linkregister a:hover {
     text-decoration: underline;
 }
+
+#container-linklogin{
+      text-align: center;
+    margin-top: 15px;
+    font-size: 0.9rem;
+    color: #666;
+}
+#container-linklogin a  {
+       color: #4CAF50;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+#container-linklogin a:hover {
+    text-decoration: underline;
+}
