@@ -1,7 +1,5 @@
 package forum
 
-
-
 type Users struct {
 	Nickname         string `json:"nickname"`
 	FirstName        string `json:"first_name"`
@@ -10,10 +8,11 @@ type Users struct {
 	Gender           string `json:"gender"`
 	Email            string `json:"email"`
 	Password         string `json:"password"`
-	Confirm_password string `json:"confirm-password"`
+	Confirm_password string `json:"confirm_password"`
 }
+
+
 type Login struct {
-	Nicknameoremail string `json:user`
-	Password  string `json:password`
+    Nicknameoremail string `json:"user"`     
+    Password        string `json:"password"` 
 }
-	
