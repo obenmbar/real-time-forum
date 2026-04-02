@@ -1,5 +1,6 @@
-import { RenderHome } from "./home"
-
+import { RenderHome } from "./home.js"
+import { RenderLogin } from "./login.js"
+import { Navigate } from "./router.js"
 
   export function RenderRegister() {
   const container = document.getElementById('container')
@@ -23,15 +24,15 @@ import { RenderHome } from "./home"
 
             <div class="input-group">
                 <label for="age">Age</label>
-                <input type="number" name="age" id="age" required placeholder="Enter age">
+                <input type="number" name="age" id="age" required placeholder="Enter age" max="100" min= "0">
             </div>
 
             <div class="input-group">
                 <label for="gender">Gender</label>
                 <select name="gender" id="gender" required>
                     <option value="" disabled selected>Select Gender</option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
                 </select>
             </div>
 
@@ -47,10 +48,14 @@ import { RenderHome } from "./home"
 
             <div class="input-group">
                 <label for="confirm-password">Confirm Password</label>
-                <input type="password" name="confirm-password" id="confirm-password" required placeholder="Confirm password">
+                <input type="password" name="confirm_password" id="confirm-password" required placeholder="Confirm password">
             </div>
 
             <button type="submit" id="submit-btn">Submit</button>
+
+            <div id="container-linklogin">
+            <p>Already have an account? <a href="#" id="to-login">Login</a></p> 
+              </div>
         </form>`
 
     container.innerHTML= registerhtml
@@ -72,7 +77,7 @@ import { RenderHome } from "./home"
         return
      }
 
-      if (data.password !== data["confirm-password"]){
+      if (data.password !== data["confirm_password"]){
         alert('password not match')
         return
       }
@@ -97,7 +102,7 @@ import { RenderHome } from "./home"
      }
 
      try {
-        let  response = await fetch('/register', {
+        let  response = await fetch('/api/register', {
             method: "POST",
             body: JSON.stringify(data),
             headers: {
@@ -119,5 +124,10 @@ import { RenderHome } from "./home"
        console.error(error.message)
      }
      
+    })
+    const linklogin = document.getElementById('to-login')
+    linklogin.addEventListener('click', (event)=> {
+        event.preventDefault()
+        Navigate("/login")
     })
  }

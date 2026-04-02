@@ -1,6 +1,7 @@
 
 import { RenderRegister } from "./register.js"
 import { RenderHome } from "./home.js"
+import { Navigate } from "./router.js"
 
 export function RenderLogin(){
     const container =   document.getElementById("container")
@@ -33,9 +34,12 @@ export function RenderLogin(){
 
 export function LoginLogique() {
    const form = document.getElementById('login-form')
-    
+    const submit_btn =  document.getElementById('submit-btn')
+
    form.addEventListener("submit", async (event)=> {
     event.preventDefault()
+    submit_btn.disabled = true
+    submit_btn.innerText = "Logging in..."
     const formdata =  new FormData(form)
     const data =  Object.fromEntries(formdata.entries())
 
@@ -51,7 +55,7 @@ export function LoginLogique() {
     }
     
     try {
-        const response = await fetch("/login", {
+        const response = await fetch("/api/login", {
             method:"POST",
          headers:{
             "content-Type": "application/json"
@@ -73,6 +77,9 @@ export function LoginLogique() {
     }catch(error){
           alert(error.message)
           return
+    } finally {
+        submit_btn.disabled = false;
+        submit_btn.innerText = "submit"
     }
 
    })
@@ -81,6 +88,6 @@ export function LoginLogique() {
     
     linkregister.addEventListener('click', (event)=> {
         event.preventDefault()
-         RenderRegister()
+         Navigate("/register")
     })
 }
