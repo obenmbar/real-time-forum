@@ -22,15 +22,15 @@ func main() {
 		http.ServeFile(w, r, "../frontend/index.html")
 	})
 
-	mux.HandleFunc("/register", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/api/register", func(w http.ResponseWriter, r *http.Request) {
                    serverDB.Registerhandler(w,r)
 	})
        
-	mux.HandleFunc("/login",func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/api/login",func(w http.ResponseWriter, r *http.Request) {
 		serverDB.LoginHandler(w,r)
 	})
 
-       mux.Handle("/static/",http.StripPrefix("/static/",nki.SafeFileServer()))
+    mux.Handle("/static/",http.StripPrefix("/static/",nki.SafeFileServer()))
 
 	fmt.Println("server started: http://localhost:8080")
 	err = http.ListenAndServe(":8080", mux)
