@@ -29,12 +29,12 @@ func (db *DB) LoginHandler(w http.ResponseWriter, r *http.Request) {
 		if userid == "walo" {
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusInternalServerError)
-			json.NewEncoder(w).Encode(map[string]string{"messege": err.Error()})
+			json.NewEncoder(w).Encode(map[string]string{"messege": "Internal server error, please try later"})
 			return
 		}
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusBadRequest)
-		json.NewEncoder(w).Encode(map[string]string{"messege": "Invalid Password"})
+		json.NewEncoder(w).Encode(map[string]string{"messege": "Invalid email/username or password"})
 		return
 	}
 
