@@ -32,8 +32,8 @@ func main() {
 
     mux.Handle("/static/",http.StripPrefix("/static/",nki.SafeFileServer()))
 
-	fmt.Println("server started: http://localhost:8080")
-	err = http.ListenAndServe(":8080", mux)
+	fmt.Println("server started: http://localhost:8050")
+	err = http.ListenAndServe(":8050", mux)
 	if err != nil {
 		fmt.Println("error in starting server")
 		return
