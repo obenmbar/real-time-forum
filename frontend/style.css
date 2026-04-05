@@ -1,28 +1,47 @@
 /* static/style.css */
 
 * {
-    box-sizing: border-box; /* كتحمي الـ inputs باش ما يخرجوش من الكارطونة */
+    box-sizing: border-box;
 }
 
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f7f6;
+    margin: 0;
+    min-height: 100vh;
+}
+
+/* الـ body يتسنتر غير فاش فيه login أو register */
+body:has(#container form) {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    margin: 0;
 }
 
 #container {
     background: #ffffff;
-    padding: 30px;
     border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+#container:has(form) {
+    padding: 30px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     width: 100%;
     max-width: 400px;
 }
 
+#container:has(.home-layout) {
+    width: 100vw;
+    height: 100vh;
+    max-width: none;
+    border-radius: 0;
+    padding: 0;
+}
+/* حذفه — هو اللي كان كيخرب كلشي */
+#container {
+    max-width: 400px;
+}
 h2 {
     text-align: center;
     color: #333;
@@ -34,7 +53,7 @@ h2 {
     margin-bottom: 15px;
     display: flex;
     flex-direction: column;
-    text-align: left; /* باش الـ label يجي لليسار */
+    text-align: left;
 }
 
 .input-group label {
@@ -49,7 +68,7 @@ input {
     border-radius: 5px;
     font-size: 14px;
     outline: none;
-    width: 100%; /* كياخد العرض كامل ديال الـ div */
+    width: 100%;
 }
 
 input:focus {
@@ -71,7 +90,7 @@ input:focus {
 }
 
 #submit-btn:hover {
-    background-color: #45a049; /* لون أخضر غامق شوية */
+    background-color: #45a049;
 }
 
 #container-linkregister {
@@ -91,18 +110,297 @@ input:focus {
     text-decoration: underline;
 }
 
-#container-linklogin{
-      text-align: center;
+#container-linklogin {
+    text-align: center;
     margin-top: 15px;
     font-size: 0.9rem;
     color: #666;
 }
-#container-linklogin a  {
-       color: #4CAF50;
+
+#container-linklogin a {
+    color: #4CAF50;
     font-weight: bold;
     text-decoration: none;
 }
 
 #container-linklogin a:hover {
     text-decoration: underline;
+}
+
+.home-layout {
+    display: grid;
+    grid-template-columns: 220px 1fr 260px;
+    min-height: 100vh;
+}
+
+.sidebar-left {
+    background: #ffffff;
+    border-right: 1px solid #ebebeb;
+    padding: 24px 0;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+}
+
+.main-nav .logo {
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    padding: 0 20px 24px;
+    color: #1a1a1a;
+}
+
+.main-nav .logo span {
+    color: #1D9E75;
+}
+
+.main-nav ul {
+    list-style: none;
+}
+
+.main-nav ul li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #666;
+    cursor: pointer;
+    border-left: 2px solid transparent;
+    transition: all 0.15s ease;
+}
+
+.main-nav ul li:hover {
+    background: #f5f5f5;
+    color: #1a1a1a;
+}
+
+.main-nav ul li.active {
+    color: #1D9E75;
+    border-left: 2px solid #1D9E75;
+    background: #E1F5EE;
+}
+
+.feed-section {
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    background: #f4f7f6;
+    overflow-y: auto;
+}
+
+.create-post {
+    background: #ffffff;
+    border: 1px solid #e8e8e8;
+    border-radius: 10px;
+    padding: 16px;
+}
+
+.create-post textarea {
+    width: 100%;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 14px;
+    font-family: 'DM Sans', Arial, sans-serif;
+    resize: none;
+    min-height: 80px;
+    outline: none;
+    background: #fafafa;
+    transition: border-color 0.15s;
+}
+
+.create-post textarea:focus {
+    border-color: #1D9E75;
+    background: #fff;
+}
+
+.post-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+/* كنزيدو فراغ بين العناصر وسط الفورم */
+#post-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px; /* هادا هو "السحر" اللي كيزيد الفراغ بين كاع العناصر */
+}
+
+.input-group-post {
+    width: 100%;
+}
+
+#post-title {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    outline: none;
+    background: #fafafa;
+    transition: all 0.2s;
+}
+
+#post-title:focus {
+    border-color: #1D9E75;
+    background: #fff;
+}
+
+/* تعديل الـ textarea باش ما تلصقش مع اللي فوقها */
+.create-post textarea {
+    margin-top: 4px; /* زيادة اختيارية للفراغ */
+}
+.post-actions select {
+    font-size: 13px;
+    padding: 7px 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background: #f5f5f5;
+    color: #555;
+    outline: none;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background: #1D9E75;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 20px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-primary:hover {
+    background: #0F6E56;
+}
+
+.posts-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.messenger-sidebar {
+    background: #ffffff;
+    border-left: 1px solid #ebebeb;
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+}
+
+.messenger-header {
+    padding: 20px 16px 14px;
+    border-bottom: 1px solid #ebebeb;
+}
+
+.messenger-header h3 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1a1a1a;
+}
+
+#user-search {
+    padding: 10px 12px;
+    border-bottom: 1px solid #ebebeb;
+}
+
+#user-search input {
+    width: 100%;
+    padding: 7px 10px;
+    font-size: 13px;
+    background: #f5f5f5;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.15s;
+}
+
+#user-search input:focus {
+    border-color: #1D9E75;
+}
+
+.users-list {
+    list-style: none;
+    padding: 8px 0;
+    flex: 1;
+    overflow-y: auto;
+}
+
+.loader,
+.user-item-loading {
+    font-size: 13px;
+    color: #aaa;
+    padding: 12px 16px;
+    text-align: center;
+}
+
+.user-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    cursor: pointer;
+    transition: background 0.2s;
+    border-bottom: 1px solid #f9f9f9;
+}
+
+.user-item:hover {
+    background: #f0f7f4;
+}
+
+.user-avatar {
+    width: 38px;
+    height: 38px;
+    background: #e0e0e0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: #777;
+    position: relative;
+}
+
+.status-indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    border: 2px solid #fff;
+}
+
+.status-online { background: #1D9E75; }
+.status-offline { background: #ccc; }
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.user-name {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: #333;
+}
+
+.last-msg-preview {
+    font-size: 12px;
+    color: #888;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px;
 }

@@ -1,13 +1,13 @@
  
- import { RenderRegister } from "./register";
- import { RenderLogin } from "./login";
-import { RenderHome } from "./home";
+ import { RenderRegister } from "./register.js";
+ import { RenderLogin } from "./login.js";
+import { RenderHome } from "./home.js";
 
   export const Router = ()=> {
-        const path = window.location.pathname
-        if (path === "/register"){
+        const path = window.location.hash
+        if (path === "#/register"){
             RenderRegister()
-        }else if (path === "/login") {
+        }else if (path === "#/login") {
          RenderLogin()
         }else {
             RenderHome()
@@ -15,8 +15,6 @@ import { RenderHome } from "./home";
  }
 
  export function Navigate(path){ 
-    window.history.pushState({},"",path)
-
-    Router()
+    window.location.hash =  path
  }
  
