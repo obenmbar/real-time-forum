@@ -1,0 +1,15 @@
+هي الأسئلة اللي غادي نجاوبو عليها "حبة حبة" فـ هاد النقاش:
+
+شنو هو الـ WebSocket أصلاً؟ (التعريف العلمي: Full-Duplex vs Half-Duplex).
+
+كيفاش كيبدا الاتصال؟ (The HTTP Handshake & Protocol Upgrade).
+
+علاش ما نخدموش غير بـ HTTP عادي؟ (Overhead & Latency comparison).
+
+شنو هما البدائل؟ (Polling, Long Polling, SSE - Server-Sent Events).
+
+كيفاش كيموت الاتصال؟ (Heartbeats, Pings, and Pongs).
+
+الأمان (Security): (WS vs WSS, CSRF in WebSockets).
+
+الـ Scaling: (كيفاش نسيرو مليون مستخدم فـ دقة واحدة بـ الـ Hub والـ Redis).
